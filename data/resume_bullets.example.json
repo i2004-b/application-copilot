@@ -1,0 +1,32 @@
+[
+  {
+    "id": "b1",
+    "text": "Built a Python service that processes and validates structured data from multiple third-party APIs.",
+    "tracks": ["SWE", "AI/ML Engineer"]
+  },
+  {
+    "id": "b2",
+    "text": "Implemented a multi-agent pipeline using LangGraph and a custom MCP server to automate a multi-step data workflow.",
+    "tracks": ["AI/ML Engineer", "SWE"]
+  },
+  {
+    "id": "b3",
+    "text": "Fine-tuned an open-source transformer model and benchmarked it against a closed-source API on accuracy, latency, and cost.",
+    "tracks": ["AI/ML Engineer", "AI/ML Researcher"]
+  },
+  {
+    "id": "b4",
+    "text": "Ran a multi-agent research project studying behavioral drift and hallucination propagation across LLM pipelines.",
+    "tracks": ["AI/ML Researcher"]
+  },
+  {
+    "id": "b5",
+    "text": "Interviewed a cohort of target users, wrote a PRD, and prioritized a feature backlog using a RICE framework.",
+    "tracks": ["TPM/PM"]
+  },
+  {
+    "id": "b6",
+    "text": "Shipped a staged product rollout (v1-v3) to real users and tracked weekly adoption metrics to guide the roadmap.",
+    "tracks": ["TPM/PM"]
+  }
+]

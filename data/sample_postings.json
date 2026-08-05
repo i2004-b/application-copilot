@@ -1,0 +1,44 @@
+[
+  {
+    "company": "Example Co",
+    "source": "greenhouse",
+    "extracted": {
+      "company": "Example Co",
+      "title": "Software Engineering Intern",
+      "role_type": "SWE",
+      "required_skills": ["Python", "distributed systems", "SQL"],
+      "min_years_experience": 0,
+      "location": "Remote",
+      "is_internship": true,
+      "summary": "Work on the core API platform serving millions of requests per day."
+    }
+  },
+  {
+    "company": "Sample AI Labs",
+    "source": "lever",
+    "extracted": {
+      "company": "Sample AI Labs",
+      "title": "AI Engineering Intern",
+      "role_type": "AI/ML Engineer",
+      "required_skills": ["Python", "LLM APIs", "agent frameworks"],
+      "min_years_experience": 0,
+      "location": "San Francisco, CA",
+      "is_internship": true,
+      "summary": "Build agentic workflows on top of open- and closed-source models."
+    }
+  },
+  {
+    "company": "Demo Product Co",
+    "source": "ashby",
+    "extracted": {
+      "company": "Demo Product Co",
+      "title": "Technical Program Manager Intern",
+      "role_type": "TPM/PM",
+      "required_skills": ["roadmapping", "cross-functional coordination", "SQL"],
+      "min_years_experience": 0,
+      "location": "New York, NY",
+      "is_internship": true,
+      "summary": "Drive a cross-functional roadmap for a new internal developer tool."
+    }
+  }
+]

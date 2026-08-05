@@ -1,0 +1,35 @@
+# --- core ---
+# Reads .env file and loads contents and environment variables
+python-dotenv==1.0.1
+# Data-validation library (user defines shape for data and this enforces the shape) --> checks to make sure job matches schema and throws and error if encountered
+pydantic>=2.12.0
+# Standard way to make HTTP calls in Python (GET/POST to a URL) --> used everywhere to talk to external API without dedicated SDK
+requests==2.32.3
+
+# --- LLM clients ---
+# Anthropic's official python SDK for claude api (wraps HTTP calls to claude into python methods)
+anthropic>=0.69.0    # pin to a floor, not exact -- older 0.3x pins break on current httpx
+# openai==1.43.0        # uncomment if you add a closed-source comparison model beyond Claude
+
+# --- agent orchestration ---
+# Framework for wiring multiple steps/agents into a graph (where each step reads/writes shared state object)
+langgraph==0.2.28
+# langchain-core is pulled in automatically as a langgraph dependency --
+# don't pin it separately, langgraph is picky about which range it wants.
+
+# --- MCP server ---
+# Anthropic's model context protocal --> standard way to expose functions as tools any AI client can use
+mcp>=2.0.0    # the FastMCP class was renamed to MCPServer in this line -- see src/mcp_server/server.py
+
+# --- embeddings / matching ---
+# Turns text into vector of numbers (embeddings) so similar meaning text end up as similar vectors (not keyword matching, but rather meaning-matching)
+sentence-transformers==3.0.1
+numpy==1.26.4
+
+# --- storage / dashboard ---
+# Framework for building a web UI purely in Python
+streamlit==1.38.0
+
+# --- testing ---
+# Standard Python testing framework
+pytest==8.3.2
