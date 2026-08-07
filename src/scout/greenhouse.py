@@ -49,8 +49,11 @@ def filter_by_keywords(postings: list[dict], keywords: list[str]) -> list[dict]:
 
 if __name__ == "__main__":
     # Quick manual smoke test -- swap in a real board token from your tracker.
-    postings = fetch_postings("stripe")
+    # Manual testing being done
+    company = "anthropic"
+    postings = fetch_postings(company)
     interns = filter_by_keywords(postings, ["intern"])
+    print(f"{company.upper()}:")
     print(f"{len(postings)} total postings, {len(interns)} match 'intern'")
     for p in interns[:5]:
-        print(f"- {p['title']} ({p['location']['name']})")
+        print(f"- {p['title']} ({p['location']})")

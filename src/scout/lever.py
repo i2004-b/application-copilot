@@ -29,3 +29,19 @@ def fetch_postings(company: str, timeout: int = 15) -> list[dict]:
     resp = requests.get(url, params={"mode": "json"}, timeout=timeout)
     resp.raise_for_status()
     return resp.json()
+
+def filter_by_keywords(postings: list[dict], keywords: list[str]) -> list[dict]:
+    keywords_lower = [k.lower() for k in keywords]
+    return [
+        p for p in postings
+        if any(k in p.get("title", "").lower() for k in keywords_lower)
+    ]
+
+if __name__ == "__main__":
+    company = "palantir"
+    postings = fetch_postings(company)
+    interns = filter_by_keywords(postings, ["intern"])
+    print(f"{company.upper()}:")
+    print(f"{len(postings)} total postings, {len(interns)} match 'intern'")
+    for p in interns[:5]:
+        print(f"- {p['title']} ({p['location']})")
