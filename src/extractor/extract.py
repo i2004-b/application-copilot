@@ -32,16 +32,20 @@ from anthropic import Anthropic
 from src.config import settings
 from src.extractor.schemas import ExtractedJob
 
-_client = Anthropic(api_key=settings.anthropic_api_key)
+_client = Anthropic(api_key=settings.anthropic_api_key) # Creates re-usable connection instance to Anthropic
 
+# Dictionary --> tool specification for claude
 _EXTRACTION_TOOL = {
-    "name": "record_extracted_job",
-    "description": "Record structured fields extracted from a job posting.",
+    # Name is the function idenfier Claude will invoke
+    "name": "record_extracted_job", # No function for this; giving LLM a form a saying to fill it out
+    "description": "Record structured fields extracted from a job posting.", # Telling what the tool is for
+    # Takes pydantic blueprint and translates into standard JSON schema format so claude understands exact fields
     "input_schema": ExtractedJob.model_json_schema(),
 }
 
 
 @dataclass
+# Like a lightweight custom data object and gives experiment metadata
 class ExtractionResult:
     job: ExtractedJob
     model: str
@@ -49,7 +53,9 @@ class ExtractionResult:
     input_tokens: int | None = None
     output_tokens: int | None = None
 
-
+"""
+Takes raw job description
+"""
 def extract_with_claude(raw_jd_text: str, model: str | None = None) -> ExtractionResult:
     """Force Claude to call record_extracted_job with structured fields."""
     model = model or settings.closed_model
@@ -57,8 +63,8 @@ def extract_with_claude(raw_jd_text: str, model: str | None = None) -> Extractio
     response = _client.messages.create(
         model=model,
         max_tokens=1024,
-        tools=[_EXTRACTION_TOOL],
-        tool_choice={"type": "tool", "name": "record_extracted_job"},
+        tools=[_EXTRACTION_TOOL], # LLM API tool declaration
+        tool_choice={"type": "tool", "name": "record_extracted_job"}, # Forces claude to bypass normal text generation entirely 
         messages=[
             {
                 "role": "user",
@@ -68,9 +74,9 @@ def extract_with_claude(raw_jd_text: str, model: str | None = None) -> Extractio
     )
     latency = time.perf_counter() - start
 
-    for block in response.content:
-        if block.type == "tool_use" and block.name == "record_extracted_job":
-            job = ExtractedJob(**block.input)
+    for block in response.content: # response.content comes back as list of blocks
+        if block.type == "tool_use" and block.name == "record_extracted_job": # Checks if claude actually respond using the tool
+            job = ExtractedJob(**block.input) # ** --> unpacking into ExtractedJob pydantic class to validate that the types are correct
             return ExtractionResult(
                 job=job,
                 model=model,
@@ -123,3 +129,53 @@ def extract_with_ollama(raw_jd_text: str, model: str | None = None) -> Extractio
         input_tokens=payload.get("prompt_eval_count"),
         output_tokens=payload.get("eval_count"),
     )
+
+
+# Testing script
+if __name__ == "__main__":
+    # Import from the scout folder whichever platform you want to test: greenhouse, ashby, lever
+    from src.scout.greenhouse import fetch_postings
+
+    # Save the posting for the company
+    postings = fetch_postings("stripe")
+
+    # Execute if the postings exist
+    if postings:
+        # Get a sample
+        sample = postings[0]
+
+        # Get content in the posting
+        raw_text = sample.get("content", "")
+
+        # Extract the fields
+        print(f"Extracting fields for: {sample.get("title")}...")
+
+        # Call extract with claude
+        result_closed = extract_with_claude(raw_text, "claude-haiku-4-5-20251001")
+        result_open = extract_with_ollama(raw_text, "qwen2.5:7b")
+
+        # Print the results from closed model --> Claude Haiku 4.5
+        print("\n--- Extracted Result (Closed Model) ---")
+        print(f"Company: {result_closed.job.company}")
+        print(f"Title: {result_closed.job.title}")
+        print(f"Role Type: {result_closed.job.role_type}")
+        print(f"Skills: {result_closed.job.required_skills}")
+        print(f"Min Years: {result_closed.job.min_years_experience}")
+        print(f"Location: {result_closed.job.location}")
+        print(f"Is Internship: {result_closed.job.is_internship}")
+        print(f"Summary: {result_closed.job.summary}")
+        print(f"\nLatency: {result_closed.latency_seconds:.2f}s | Tokens (In/Out): {result_closed.input_tokens}/{result_closed.output_tokens}")
+
+        # Print the results --> Qwen
+        print("\n--- Extracted Result (Open Model) ---")
+        print(f"Company: {result_open.job.company}")
+        print(f"Title: {result_open.job.title}")
+        print(f"Role Type: {result_open.job.role_type}")
+        print(f"Skills: {result_open.job.required_skills}")
+        print(f"Min Years: {result_open.job.min_years_experience}")
+        print(f"Location: {result_open.job.location}")
+        print(f"Is Internship: {result_open.job.is_internship}")
+        print(f"Summary: {result_open.job.summary}")
+        print(f"\nLatency: {result_open.latency_seconds:.2f}s | Tokens (In/Out): {result_open.input_tokens}/{result_open.output_tokens}")
+
+
