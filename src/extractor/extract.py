@@ -30,17 +30,19 @@ import requests
 from anthropic import Anthropic
 
 from src.config import settings
-from src.extractor.schemas import ExtractedJob
+from src.extractor.schemas import ExtractedJob, ExtractedJobDetails
 
 _client = Anthropic(api_key=settings.anthropic_api_key) # Creates re-usable connection instance to Anthropic
+
+_EXTRACTION_TOOL_NAME = "record_extracted_job_details"
 
 # Dictionary --> tool specification for claude
 _EXTRACTION_TOOL = {
     # Name is the function idenfier Claude will invoke
-    "name": "record_extracted_job", # No function for this; giving LLM a form a saying to fill it out
+    "name": _EXTRACTION_TOOL_NAME, # No function for this; giving LLM a form a saying to fill it out
     "description": "Record structured fields extracted from a job posting.", # Telling what the tool is for
     # Takes pydantic blueprint and translates into standard JSON schema format so claude understands exact fields
-    "input_schema": ExtractedJob.model_json_schema(), # Makes into JSON
+    "input_schema": ExtractedJobDetails.model_json_schema(), # Makes into JSON
 }
 
 
@@ -53,30 +55,47 @@ class ExtractionResult:
     input_tokens: int | None = None
     output_tokens: int | None = None
 
+
 """
 Takes raw job description
 """
-def extract_with_claude(raw_jd_text: str, model: str | None = None) -> ExtractionResult:
+def extract_with_claude(raw_jd_text: str, *, company: str, title: str, model: str | None = None) -> ExtractionResult:
     """Force Claude to call record_extracted_job with structured fields."""
     model = model or settings.closed_model
     start = time.perf_counter()
+
     response = _client.messages.create(
         model=model,
         max_tokens=1024,
         tools=[_EXTRACTION_TOOL], # LLM API tool declaration
-        tool_choice={"type": "tool", "name": "record_extracted_job"}, # Forces claude to bypass normal text generation entirely 
+        tool_choice={"type": "tool", "name": _EXTRACTION_TOOL_NAME}, # Forces claude to bypass normal text generation entirely 
         messages=[
             {
                 "role": "user",
-                "content": f"Extract structured fields from this job posting:\n\n{raw_jd_text}",
+                "content": (
+                    "The following metadata comes directly from the job board "
+                    "and is authoritative:\n"
+                    f"Employer: {company}\n"
+                    f"Official job title: {title}\n\n"
+                    "Extract only the remaining fields defined by the tool schema "
+                    "from this job posting:\n\n"
+                    f"{raw_jd_text}"
+                ),
             }
         ],
     )
     latency = time.perf_counter() - start
 
     for block in response.content: # response.content comes back as list of blocks
-        if block.type == "tool_use" and block.name == "record_extracted_job": # Checks if claude actually respond using the tool
-            job = ExtractedJob(**block.input) # ** --> unpacking into ExtractedJob pydantic class to validate that the types are correct
+        if block.type == "tool_use" and block.name == _EXTRACTION_TOOL_NAME: # Checks if claude actually respond using the tool
+            details = ExtractedJobDetails(**block.input) # ** --> unpacking into ExtractedJob pydantic class to validate that the types are correct
+
+            job = ExtractedJob(
+                company = company,
+                title = title,
+                **details.model_dump(),
+            ) 
+
             return ExtractionResult(
                 job=job,
                 model=model,
@@ -84,10 +103,11 @@ def extract_with_claude(raw_jd_text: str, model: str | None = None) -> Extractio
                 input_tokens=response.usage.input_tokens,
                 output_tokens=response.usage.output_tokens,
             )
+        
     raise ValueError("Claude did not return a tool_use block -- inspect response.content")
 
 
-def extract_with_ollama(raw_jd_text: str, model: str | None = None) -> ExtractionResult:
+def extract_with_ollama(raw_jd_text: str, *, company: str, title: str, model: str | None = None) -> ExtractionResult:
     """
     Same task, run against a local Ollama model. Requires `ollama serve`
     running and the model already pulled (`ollama pull <model>`).
@@ -98,19 +118,31 @@ def extract_with_ollama(raw_jd_text: str, model: str | None = None) -> Extractio
     of the point of the comparison.
     """
     model = model or settings.ollama_model
-    schema = ExtractedJob.model_json_schema()
+    schema = ExtractedJobDetails.model_json_schema()
+
     prompt = (
-        "Extract structured fields from this job posting. "
-        f"Respond with ONLY valid JSON matching this schema:\n{json.dumps(schema)}\n\n"
+        "The following metadata comes directly from the job board and "
+        "is authoritative:\n"
+        f"Employer: {company}\n"
+        f"Official job title: {title}\n\n"
+        "Extract only the remaining fields defined by the schema. "
+        "Do not return company or title.\n\n"
+        f"Respond with ONLY valid JSON matching this schema:\n"
+        f"{json.dumps(schema)}\n\n"
         f"Job posting:\n{raw_jd_text}"
     )
 
     start = time.perf_counter()
+
     resp = requests.post(
         f"{settings.ollama_host}/api/chat",
         json={
             "model": model,
-            "messages": [{"role": "user", "content": prompt}],
+            "messages": [
+                {"role": "user",
+                "content": prompt,
+                }
+            ],
             "format": "json",
             "stream": False,
         },
@@ -121,7 +153,15 @@ def extract_with_ollama(raw_jd_text: str, model: str | None = None) -> Extractio
 
     payload = resp.json()
     content = payload["message"]["content"]
-    job = ExtractedJob(**json.loads(content))
+
+    details = ExtractedJobDetails(**json.loads(content))
+
+    job = ExtractedJob(
+        company = company,
+        title = title,
+        **details.model_dump(),
+    )
+
     return ExtractionResult(
         job=job,
         model=model,
@@ -139,10 +179,13 @@ if __name__ == "__main__":
     # Save the posting for the company
     postings = fetch_postings("stripe")
 
+    company = "Stripe"
+
     # Execute if the postings exist
     if postings:
         # Get a sample
         sample = postings[0]
+        title = sample["title"]
 
         # Get content in the posting
         raw_text = sample.get("content", "")
@@ -157,8 +200,8 @@ if __name__ == "__main__":
         # print("\n--- RAW TEXT SENT TO MODELS ---")
         # print(raw_text[:3000])
 
-        result_closed = extract_with_claude(raw_text, "claude-haiku-4-5-20251001")
-        result_open = extract_with_ollama(raw_text, "qwen2.5:7b")
+        result_closed = extract_with_claude(raw_text, company=company, title=title, model="claude-haiku-4-5-20251001")
+        result_open = extract_with_ollama(raw_text, company=company, title=title, model="qwen2.5:7b")
 
         # Debugging
         # print(json.dumps(ExtractedJob.model_json_schema(), indent=2)) 
@@ -173,6 +216,7 @@ if __name__ == "__main__":
         print("\n--- Extracted Result (Closed Model) ---")
         print("-----------------------------------------")
         print(f"Company: {result_closed.job.company}\n")
+        print(f"Organization: {result_closed.job.organization}\n")
         print(f"Title: {result_closed.job.title}\n")
         print(f"Role Type: {result_closed.job.role_type}\n")
         print(f"Required Skills: {result_closed.job.required_skills}\n")
@@ -181,12 +225,13 @@ if __name__ == "__main__":
         print(f"Location: {result_closed.job.location}\n")
         print(f"Is Internship: {result_closed.job.is_internship}\n")
         print(f"Summary: {result_closed.job.summary}\n")
-        print(f"Latency: {result_closed.latency_seconds:.2f}s | Tokens (In/Out): {result_closed.input_tokens}/{result_closed.output_tokens}")
+        print(f"Latency: {result_closed.latency_seconds:.2f}s | Tokens (In/Out): {result_closed.input_tokens}/{result_closed.output_tokens}\n")
 
         # Print the results --> Qwen
         print("\n--- Extracted Result (Open Model) ---")
         print("-----------------------------------------")
         print(f"Company: {result_open.job.company}\n")
+        print(f"Organization: {result_open.job.organization}\n")
         print(f"Title: {result_open.job.title}\n")
         print(f"Role Type: {result_open.job.role_type}\n")
         print(f"Required Skills: {result_open.job.required_skills}\n")

@@ -14,24 +14,43 @@ RoleType = Literal["SWE", "AI/ML Engineer", "AI/ML Researcher", "TPM/PM", "Other
 
 
 
-class ExtractedJob(BaseModel):
-    company: str
-    title: str
+class ExtractedJobDetails(BaseModel):
+    """Fields inferred by the LLM."""
+
+    organization: Optional[str] = Field(
+        description=(
+            "A specifically named sub-brand, subsidiary, division, business unit, "
+            "or product organization within the employer that the role belongs to. "
+            "For example, if the employer is Stripe and the role is specifically "
+            "at Bridge, return 'Bridge'. "
+            "Do not return generic functional team names such as 'Engineering', "
+            "'Account Management', or 'Sales' unless they are explicitly presented "
+            "as a named organization. "
+            "Return null if no distinct organization is identified."
+        )
+    )
     # Add descriptions of the role type for the LLM to get help in deciphering roles
     role_type: RoleType = Field(
         description=(
-            "Classify the role according to its PRIMARY JOB FUNCTION, "  # Need these spaces or concatenates with the next line
+            "Classify the role according to its PRIMARY JOB FUNCTION, "
             "not the industry of the employer or whether the role interacts "
             "with technology. "
-            "SWE = software engineering/development roles. "
-            "AI/ML Engineer = engineering roles building or deploying ML/AI systems. "
-            "AI/ML Researcher = research-focused AI/ML roles. "
-            "TPM/PM = technical program management, product management, technology, Bridges business, engineering, and design to build tech products successfully "
-            "technical product management, or closely related roles. "
+            "SWE = roles primarily responsible for designing, implementing, "
+            "testing, or maintaining software. "
+            "AI/ML Engineer = engineering roles primarily responsible for building, "
+            "deploying, or maintaining AI/ML systems. "
+            "AI/ML Researcher = roles primarily responsible for conducting AI/ML "
+            "research or developing novel ML methods. "
+            "TPM/PM = roles primarily responsible for managing technical programs, "
+            "products, roadmaps, requirements, prioritization, delivery, or engineering "
+            "execution. This includes technical program managers, product managers, "
+            "and technical product managers. "
             "Other = roles outside these categories, including sales, account "
-            "management, finance, marketing, HR, consulting, and operations. "
-            "Do not choose the closest category when the job clearly belongs outside "
-            "the target categories; use Other."
+            "management, customer success, finance, marketing, HR, consulting, "
+            "and operations. "
+            "Classify based on what the employee is primarily hired to do. "
+            "Do not classify a role as TPM/PM merely because it works with technology, "
+            "engineers, products, or cross-functional stakeholders."
         )
     )
 
@@ -59,13 +78,22 @@ class ExtractedJob(BaseModel):
     min_years_experience: Optional[int] = Field(
         default=None,
         description=(
-            "Minimum overall years or professional experience explicitly required "
+            "Minimum overall years of professional experience explicitly required "
             "for the role. If several minimum experience requirements are listed, "
             "return the highest applicable overall threshold. Use null if no numeric "
             "minimum is stated. Do not infer years of experience."
         )
     )
-    location: Optional[str] = None
+    location: Optional[str] = Field(
+        description=(
+            "Primary work location explicitly stated in the job posting. "
+            "Return a concise location such as 'London', 'New York, NY', "
+            "'San Francisco, CA', or 'Remote'. "
+            "If multiple locations are explicitly allowed, include them concisely. "
+            "If the posting is remote, return 'Remote' rather than a boolean. "
+            "Return null if no work location is stated."
+        )
+    )
     # Set based on keywords
     is_internship: bool = Field(
         description=(
@@ -73,3 +101,12 @@ class ExtractedJob(BaseModel):
         )
     )
     summary: str = Field(description="1-2 sentence plain-English summary of the role")
+
+
+class ExtractedJob(ExtractedJobDetails):
+    """
+    Complete normalized job after combining metadata with LLM-extracted details.
+    """
+
+    company: str
+    title: str
