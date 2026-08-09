@@ -40,12 +40,12 @@ _EXTRACTION_TOOL = {
     "name": "record_extracted_job", # No function for this; giving LLM a form a saying to fill it out
     "description": "Record structured fields extracted from a job posting.", # Telling what the tool is for
     # Takes pydantic blueprint and translates into standard JSON schema format so claude understands exact fields
-    "input_schema": ExtractedJob.model_json_schema(),
+    "input_schema": ExtractedJob.model_json_schema(), # Makes into JSON
 }
 
 
 @dataclass
-# Like a lightweight custom data object and gives experiment metadata
+# Like a lightweight custom data object and gives experiment metadata (what happened in the extraction)
 class ExtractionResult:
     job: ExtractedJob
     model: str
@@ -152,36 +152,49 @@ if __name__ == "__main__":
 
         # Call extract with claude
 
-        print(sample)
+        # print(sample)
 
-        print("\n--- RAW TEXT SENT TO MODELS ---")
-        print(raw_text[:3000])
+        # print("\n--- RAW TEXT SENT TO MODELS ---")
+        # print(raw_text[:3000])
 
-        # result_closed = extract_with_claude(raw_text, "claude-haiku-4-5-20251001")
-        # result_open = extract_with_ollama(raw_text, "qwen2.5:7b")
+        result_closed = extract_with_claude(raw_text, "claude-haiku-4-5-20251001")
+        result_open = extract_with_ollama(raw_text, "qwen2.5:7b")
 
-        # # Print the results from closed model --> Claude Haiku 4.5
-        # print("\n--- Extracted Result (Closed Model) ---")
-        # print(f"Company: {result_closed.job.company}")
-        # print(f"Title: {result_closed.job.title}")
-        # print(f"Role Type: {result_closed.job.role_type}")
-        # print(f"Skills: {result_closed.job.required_skills}")
-        # print(f"Min Years: {result_closed.job.min_years_experience}")
-        # print(f"Location: {result_closed.job.location}")
-        # print(f"Is Internship: {result_closed.job.is_internship}")
-        # print(f"Summary: {result_closed.job.summary}")
-        # print(f"\nLatency: {result_closed.latency_seconds:.2f}s | Tokens (In/Out): {result_closed.input_tokens}/{result_closed.output_tokens}")
+        # Debugging
+        # print(json.dumps(ExtractedJob.model_json_schema(), indent=2)) 
 
-        # # Print the results --> Qwen
-        # print("\n--- Extracted Result (Open Model) ---")
-        # print(f"Company: {result_open.job.company}")
-        # print(f"Title: {result_open.job.title}")
-        # print(f"Role Type: {result_open.job.role_type}")
-        # print(f"Skills: {result_open.job.required_skills}")
-        # print(f"Min Years: {result_open.job.min_years_experience}")
-        # print(f"Location: {result_open.job.location}")
-        # print(f"Is Internship: {result_open.job.is_internship}")
-        # print(f"Summary: {result_open.job.summary}")
-        # print(f"\nLatency: {result_open.latency_seconds:.2f}s | Tokens (In/Out): {result_open.input_tokens}/{result_open.output_tokens}")
+        # print("\n--- CLAUDE PARSED OUTPUT ---")
+        # print(result_closed.job.model_dump_json(indent=2))
+
+        # print("\n--- QWEN PARSED OUTPUT ---")
+        # print(result_open.job.model_dump_json(indent=2))
+
+        # Print the results from closed model --> Claude Haiku 4.5
+        print("\n--- Extracted Result (Closed Model) ---")
+        print("-----------------------------------------")
+        print(f"Company: {result_closed.job.company}\n")
+        print(f"Title: {result_closed.job.title}\n")
+        print(f"Role Type: {result_closed.job.role_type}\n")
+        print(f"Required Skills: {result_closed.job.required_skills}\n")
+        print(f"Preferred Skills: {result_closed.job.preferred_skills}\n")
+        print(f"Min Years: {result_closed.job.min_years_experience}\n")
+        print(f"Location: {result_closed.job.location}\n")
+        print(f"Is Internship: {result_closed.job.is_internship}\n")
+        print(f"Summary: {result_closed.job.summary}\n")
+        print(f"Latency: {result_closed.latency_seconds:.2f}s | Tokens (In/Out): {result_closed.input_tokens}/{result_closed.output_tokens}")
+
+        # Print the results --> Qwen
+        print("\n--- Extracted Result (Open Model) ---")
+        print("-----------------------------------------")
+        print(f"Company: {result_open.job.company}\n")
+        print(f"Title: {result_open.job.title}\n")
+        print(f"Role Type: {result_open.job.role_type}\n")
+        print(f"Required Skills: {result_open.job.required_skills}\n")
+        print(f"Preferred Skills: {result_open.job.preferred_skills}\n")
+        print(f"Min Years: {result_open.job.min_years_experience}\n")
+        print(f"Location: {result_open.job.location}\n")
+        print(f"Is Internship: {result_open.job.is_internship}\n")
+        print(f"Summary: {result_open.job.summary}\n")
+        print(f"Latency: {result_open.latency_seconds:.2f}s | Tokens (In/Out): {result_open.input_tokens}/{result_open.output_tokens}")
 
 

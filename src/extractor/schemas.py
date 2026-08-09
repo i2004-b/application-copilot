@@ -11,37 +11,63 @@ from pydantic import BaseModel, Field
 
 RoleType = Literal["SWE", "AI/ML Engineer", "AI/ML Researcher", "TPM/PM", "Other"]
 
-# Add descriptions of the role type for the LLM to get help in deciphering roles
-role_type: RoleType = Field(
-    description=(
-        "Classify the role into exactly one category."
-        "SWE = software engineering/development roles. "
-        "AI/ML Engineer = engineering roles building or deploying ML/AI systems. "
-        "AI/ML Researcher = research-focused AI/ML roles. "
-        "TPM/PM = technical program management, product management, "
-        "technical product management, or closely related roles. "
-        "Other = roles outside these categories, including sales, account "
-        "management, finance, marketing, HR, consulting, and operations. "
-        "Do not choose the closest category when the job clearly belongs outside "
-        "the target categories; use Other."
-    )
-)
+
 
 
 class ExtractedJob(BaseModel):
     company: str
     title: str
-    role_type: RoleType
+    # Add descriptions of the role type for the LLM to get help in deciphering roles
+    role_type: RoleType = Field(
+        description=(
+            "Classify the role according to its PRIMARY JOB FUNCTION, "  # Need these spaces or concatenates with the next line
+            "not the industry of the employer or whether the role interacts "
+            "with technology. "
+            "SWE = software engineering/development roles. "
+            "AI/ML Engineer = engineering roles building or deploying ML/AI systems. "
+            "AI/ML Researcher = research-focused AI/ML roles. "
+            "TPM/PM = technical program management, product management, technology, Bridges business, engineering, and design to build tech products successfully "
+            "technical product management, or closely related roles. "
+            "Other = roles outside these categories, including sales, account "
+            "management, finance, marketing, HR, consulting, and operations. "
+            "Do not choose the closest category when the job clearly belongs outside "
+            "the target categories; use Other."
+        )
+    )
+
+
+
     required_skills: list[str] = Field(
         default_factory=list,
         description=(
             "Skills, technologies, tools, or competencies explicitly required "
             "in the posting. Use concise canonical names. Include only requirements, "
             "not preferred qualifications, responsibilities, or skills merely inferred "
-            "from the job description."
+            "from the job description. "
         )
     )
-    min_years_experience: Optional[int] = None
+
+    preferred_skills: list[str] = Field(
+        default_factory=list,
+        description=(
+            "Skills, technologies, tools, or competencies explicitly listed "
+            "as preferred, desired, or bonus qualifications."
+            "These are preferred (or preferable) skills or qualifications. Skills, technologies, tools, or competencies that are not required "
+            "in the posting but may be suggested or 'like to haves'. Use concise canonical names. These skills are not mandatory but make the "
+            "candidate stand out."
+        )
+    )
+
+    
+    min_years_experience: Optional[int] = Field(
+        default=None,
+        description=(
+            "Minimum overall years or professional experience explicitly required "
+            "for the role. If several minimum experience requirements are listed, "
+            "return the highest applicable overall threshold. Use null if no numeric "
+            "minimum is stated. Do not infer years of experience."
+        )
+    )
     location: Optional[str] = None
     # Set based on keywords
     is_internship: bool = Field(
