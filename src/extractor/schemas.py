@@ -35,30 +35,27 @@ class ExtractedJob(BaseModel):
         )
     )
 
-
-
     required_skills: list[str] = Field(
         default_factory=list,
         description=(
             "Skills, technologies, tools, or competencies explicitly required "
-            "in the posting. Use concise canonical names. Include only requirements, "
-            "not preferred qualifications, responsibilities, or skills merely inferred "
-            "from the job description. "
+            "by the posting. Return concise canonical skill names, preferably "
+            "1-4 words each. Do not copy full phrases or sentences from the job "
+            "description. Do not include preferred qualifications or inferred skills. "
+            "Return an empty list if none are stated."
         )
     )
 
     preferred_skills: list[str] = Field(
         default_factory=list,
         description=(
-            "Skills, technologies, tools, or competencies explicitly listed "
-            "as preferred, desired, or bonus qualifications."
-            "These are preferred (or preferable) skills or qualifications. Skills, technologies, tools, or competencies that are not required "
-            "in the posting but may be suggested or 'like to haves'. Use concise canonical names. These skills are not mandatory but make the "
-            "candidate stand out."
+            "Skills, technologies, tools, or competencies explicitly listed as "
+            "preferred, desired, bonus, or nice-to-have. Return concise canonical "
+            "skill names, preferably 1-4 words each. Do not copy full phrases or "
+            "sentences. Return an empty list if none are stated."
         )
     )
 
-    
     min_years_experience: Optional[int] = Field(
         default=None,
         description=(
