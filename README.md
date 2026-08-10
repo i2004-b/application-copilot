@@ -52,7 +52,7 @@ before you touch any model code.
 board, extracted into structured fields by both models, with a first
 accuracy/cost/latency table.
 
-1. **Day 1–2 — Scout.** Pick 5–10 companies from your tracker that you know
+1. [DONE]**Day 1–2 — Scout.** Pick 5–10 companies from your tracker that you know
    use Greenhouse (check if `boards.greenhouse.io/<company>` resolves).
    Run `src/scout/greenhouse.py` directly (`python -m src.scout.greenhouse`)
    against a real board token and confirm you get postings back. Then do
@@ -69,9 +69,7 @@ accuracy/cost/latency table.
 3. **Day 4 — Extractor, open model.** With Ollama running, call
    `extract_with_ollama()` on the *same* 10 postings. Expect it to fail
    schema validation more often than Claude — that's the real finding, not
-   a bug to hide. Add basic retry logic if you want, but don't spend more
-   than an hour trying to make the open model perfect; the honest gap is
-   more interesting than a papered-over one.
+   a bug to hide. Add basic retry logic if you want, 
 
 4. **Day 5 — Build the comparison table.** Hand-label the "correct" answer
    for each of your 10 postings. Write a short script (`scripts/compare_models.py`
@@ -86,29 +84,35 @@ accuracy/cost/latency table.
    This table is one of the most concrete artifacts in your whole
    portfolio — it goes straight into this README when you're done.
 
+
+| Model | Exact Field Accuracy | Required Skill F1 | Preferred Skill F1 | Schema Validity | Avg Latency | Input Tokens | Output Tokens | Est. Cost |
+|------ |---------------------:|------------------:|-------------------:|----------------:|------------:|-------------:|--------------:|----------:|
+| Claude Haiku 4.5 | 68.0% | 0.000 | 0.100 | 10/10 | 5.21s | 29624 | 1567 | $0.0375 |
+| Qwen 2.5 7B | 78.0% | 0.456 | 0.466 | 10/10 | 7.21s | 20822 | 1476 | $0.0000 |
+
 ## Week 2 — Matching, orchestration, and MCP
 
 **Goal by end of week:** the full Scout → Extract → Match pipeline runs as
 one LangGraph graph, and the same tools are callable from an MCP client.
 
-1. **Day 1 — Your real resume bullets.** Replace
+1. **Day 6 — Your real resume bullets.** Replace
    `data/resume_bullets.example.json` with your actual bullets, tagged by
    which of your 3 resume tracks each one belongs to. Aim for 15–25
    bullets total so the matcher has something real to rank.
 
-2. **Day 2 — Matcher.** Run `src/matcher/match.py`'s `match_job_to_resume()`
+2. **Day 7 — Matcher.** Run `src/matcher/match.py`'s `match_job_to_resume()`
    against a few of the `ExtractedJob`s from week 1. Confirm the `track`
    filter in `resume_store.py` is actually pulling from the right subset —
    an "AI/ML Engineer" posting shouldn't surface your TPM/PM bullets.
 
-3. **Day 3 — Wire the graph.** `src/graph/pipeline.py` already wires
+3. **Day 8 — Wire the graph.** `src/graph/pipeline.py` already wires
    extract → match with an Ollama-first, Claude-fallback strategy. Run it
    (`python -m src.graph.pipeline`) with a real posting's text. Once that
    works, run `scripts/run_pipeline.py --board-token <token>` to push a
    whole company's postings through end to end and into SQLite
    (`python -m scripts.init_db` first, once).
 
-4. **Day 4–5 — MCP server.** Start `src/mcp_server/server.py`
+4. **Day 9 — MCP server.** Start `src/mcp_server/server.py`
    (`python -m src.mcp_server.server`). Add it to your MCP client's config
    (Claude Desktop's `claude_desktop_config.json`, or Claude Code) and ask
    it to fetch and match postings using only your tools. This is the part
