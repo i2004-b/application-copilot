@@ -203,11 +203,11 @@ def main() -> None:
 
     print("\nREADME-ready comparison table:\n")
     print(
-        "| Model | Scalar Accuracy | Required Skill F1 | Preferred Skill F1 "
-        "| Valid Outputs | Avg Latency | Input Tokens | Output Tokens | Est. Cost |"
+        "| Model | Exact Field Accuracy | Required Skill F1 | Preferred Skill F1 "
+        "| Schema Validity | Avg Latency | Input Tokens | Output Tokens | Est. Cost |"
     )
     print(
-        "|---|---:|---:|---:|---:|---:|---:|---:|---:|"
+        "|------ |---------------------:|------------------:|-------------------:|----------------:|------------:|-------------:|--------------:|----------:|"
     )
     print(
         f"| Claude Haiku 4.5 | {claude['scalar_accuracy']:.1%} | "
@@ -231,4 +231,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-    
