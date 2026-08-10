@@ -1,0 +1,1060 @@
+{
+  "metrics": {
+    "claude": {
+      "model": "claude-haiku-4-5-20251001",
+      "scalar_accuracy": 0.68,
+      "required_skill_f1": 0.0,
+      "preferred_skill_f1": 0.1,
+      "valid_outputs": 10,
+      "total_cases": 10,
+      "average_latency_seconds": 5.206132595898817,
+      "input_tokens": 29624,
+      "output_tokens": 1567,
+      "estimated_cost_usd": 0.037459
+    },
+    "qwen": {
+      "model": "qwen2.5:7b",
+      "scalar_accuracy": 0.78,
+      "required_skill_f1": 0.4561183261183261,
+      "preferred_skill_f1": 0.4656349206349206,
+      "valid_outputs": 10,
+      "total_cases": 10,
+      "average_latency_seconds": 7.209230554295937,
+      "input_tokens": 20822,
+      "output_tokens": 1476,
+      "estimated_cost_usd": 0.0
+    }
+  },
+  "cases": {
+    "claude": [
+      {
+        "id": "astranis-backend-intern-fall-2026",
+        "status": "ok",
+        "prediction": {
+          "organization": "Platform",
+          "role_type": "SWE",
+          "required_skills": [],
+          "preferred_skills": [],
+          "min_years_experience": null,
+          "location": "Northern California, CA",
+          "is_internship": true,
+          "summary": "Backend software engineer intern designing and building mission-critical services for satellite command, control, and telemetry monitoring on the Platform team.",
+          "company": "Astranis",
+          "title": "Software Engineer- Backend Intern (Fall 2026)"
+        },
+        "expected": {
+          "organization": "Platform",
+          "role_type": "SWE",
+          "required_skills": [
+            "Python",
+            "Databases",
+            "Pub/Sub Systems",
+            "Streaming Systems"
+          ],
+          "preferred_skills": [
+            "Kubernetes",
+            "Fleet Management Systems"
+          ],
+          "min_years_experience": null,
+          "location": "San Francisco, CA",
+          "is_internship": true,
+          "summary": "Build reliable backend and infrastructure services that control satellites, monitor telemetry, and support mission-critical fleet operations."
+        },
+        "scalar_accuracy": 0.8,
+        "required_skill_f1": 0.0,
+        "preferred_skill_f1": 0.0,
+        "latency_seconds": 29.4461354999803,
+        "input_tokens": 3068,
+        "output_tokens": 139
+      },
+      {
+        "id": "aquatic-swe-intern-summer-2027",
+        "status": "ok",
+        "prediction": {
+          "organization": null,
+          "role_type": "SWE",
+          "required_skills": [],
+          "preferred_skills": [],
+          "min_years_experience": null,
+          "location": null,
+          "is_internship": true,
+          "summary": "Software Engineering Intern working on high-performance, distributed systems that power research and trading infrastructure at Aquatic Capital Management.",
+          "company": "Aquatic Capital Management",
+          "title": "Software Engineer, Intern (Summer 2027)"
+        },
+        "expected": {
+          "organization": null,
+          "role_type": "SWE",
+          "required_skills": [
+            "Python",
+            "C++",
+            "Algorithms",
+            "Systems",
+            "Computer Architecture"
+          ],
+          "preferred_skills": [],
+          "min_years_experience": null,
+          "location": "Chicago",
+          "is_internship": true,
+          "summary": "Build high-performance distributed systems for quantitative research and trading infrastructure, with an emphasis on reliability and low-latency, high-throughput data processing."
+        },
+        "scalar_accuracy": 0.8,
+        "required_skill_f1": 0.0,
+        "preferred_skill_f1": 1.0,
+        "latency_seconds": 1.8349599170032889,
+        "input_tokens": 2768,
+        "output_tokens": 134
+      },
+      {
+        "id": "samaya-ml-research-intern",
+        "status": "ok",
+        "prediction": {
+          "organization": "Samaya AI",
+          "role_type": "AI/ML Researcher",
+          "required_skills": [],
+          "preferred_skills": [],
+          "min_years_experience": null,
+          "location": "Remote",
+          "is_internship": true,
+          "summary": "Machine Learning Research Intern focused on conducting novel research in Natural Language Processing, Large Language Models, RAG, reinforcement learning, and AI agents, with the goal of publishing in top-tier ML/NLP conferences.",
+          "company": "Samaya AI",
+          "title": "ML Research Intern"
+        },
+        "expected": {
+          "organization": null,
+          "role_type": "AI/ML Researcher",
+          "required_skills": [
+            "Deep Learning",
+            "Large Language Models",
+            "NLP",
+            "Python",
+            "PyTorch",
+            "Transformers"
+          ],
+          "preferred_skills": [
+            "RAG",
+            "Reinforcement Learning",
+            "AI Agent Training",
+            "AI Agent Evaluation"
+          ],
+          "min_years_experience": null,
+          "location": "Mountain View, California, United States",
+          "is_internship": true,
+          "summary": "Conduct original ML and NLP research on LLMs and AI agents, developing and evaluating new methods with the goal of producing publishable advances for financial AI."
+        },
+        "scalar_accuracy": 0.6,
+        "required_skill_f1": 0.0,
+        "preferred_skill_f1": 0.0,
+        "latency_seconds": 2.2682999999960884,
+        "input_tokens": 3465,
+        "output_tokens": 162
+      },
+      {
+        "id": "xtx-xty-ai-research-internship",
+        "status": "ok",
+        "prediction": {
+          "organization": "XTY Labs",
+          "role_type": "AI/ML Researcher",
+          "required_skills": [],
+          "preferred_skills": [],
+          "min_years_experience": null,
+          "location": "New York, NY",
+          "is_internship": true,
+          "summary": "A 12-14 week research-focused internship for advanced degree students to conduct pioneering machine learning research at the intersection of AI and algorithmic trading, with mentorship from experienced researchers and direct impact on trading strategies.",
+          "company": "XTX Markets",
+          "title": "AI Research Internship - XTY Labs"
+        },
+        "expected": {
+          "organization": "XTY Labs",
+          "role_type": "AI/ML Researcher",
+          "required_skills": [
+            "Original Research",
+            "Deep Learning",
+            "Transformers",
+            "Data Science",
+            "Optimization",
+            "Statistics",
+            "Programming"
+          ],
+          "preferred_skills": [
+            "Foundation Models",
+            "Large Language Models",
+            "Multimodal Models",
+            "Large-Scale Data Analysis",
+            "Time Series Forecasting"
+          ],
+          "min_years_experience": null,
+          "location": "New York",
+          "is_internship": true,
+          "summary": "Conduct original AI and machine-learning research at XTY Labs, building robust models and prototypes that can translate advanced research into quantitative trading applications."
+        },
+        "scalar_accuracy": 0.8,
+        "required_skill_f1": 0.0,
+        "preferred_skill_f1": 0.0,
+        "latency_seconds": 3.0225233749952167,
+        "input_tokens": 4733,
+        "output_tokens": 172
+      },
+      {
+        "id": "palantir-pcl-swe-internship",
+        "status": "ok",
+        "prediction": {
+          "organization": "Privacy and Civil Liberties (PCL)",
+          "role_type": "SWE",
+          "required_skills": [],
+          "preferred_skills": [],
+          "min_years_experience": null,
+          "location": "<UNKNOWN>",
+          "is_internship": true,
+          "summary": "A Privacy and Civil Liberties Software Engineer Internship at Palantir where interns work in small teams to design and develop full-stack software products for privacy, data protection, AI governance, and accountability across Palantir's platforms.",
+          "company": "Palantir Technologies",
+          "title": "Privacy and Civil Liberties Software Engineer, Internship"
+        },
+        "expected": {
+          "organization": "Privacy and Civil Liberties (PCL) Engineering",
+          "role_type": "SWE",
+          "required_skills": [
+            "Programming"
+          ],
+          "preferred_skills": [
+            "Privacy",
+            "Data Protection",
+            "AI Governance",
+            "AI Testing & Evaluation",
+            "National Security",
+            "Technology Policy",
+            "Technology Ethics"
+          ],
+          "min_years_experience": null,
+          "location": "New York, NY",
+          "is_internship": true,
+          "summary": "Build full-stack software for privacy, data protection, AI governance, and accountability while working across technical, policy, and customer-facing problems."
+        },
+        "scalar_accuracy": 0.6,
+        "required_skill_f1": 0.0,
+        "preferred_skill_f1": 0.0,
+        "latency_seconds": 3.3145360840135254,
+        "input_tokens": 3240,
+        "output_tokens": 171
+      },
+      {
+        "id": "plusai-ml-engineer-intern",
+        "status": "ok",
+        "prediction": {
+          "organization": "PlusAI",
+          "role_type": "AI/ML Engineer",
+          "required_skills": [],
+          "preferred_skills": [],
+          "min_years_experience": null,
+          "location": "Silicon Valley",
+          "is_internship": true,
+          "summary": "Machine learning internship focused on developing multi-modal feature fusion pipelines and temporal models for autonomous truck driving behavior classification.",
+          "company": "PlusAI",
+          "title": "Machine Learning Engineer Intern"
+        },
+        "expected": {
+          "organization": null,
+          "role_type": "AI/ML Engineer",
+          "required_skills": [
+            "Temporal Data",
+            "Python",
+            "Pandas",
+            "NumPy",
+            "PyArrow",
+            "Parquet",
+            "Classification",
+            "Supervised Learning"
+          ],
+          "preferred_skills": [
+            "Spark",
+            "Ray",
+            "Autonomous Driving"
+          ],
+          "min_years_experience": null,
+          "location": "Santa Clara, CA",
+          "is_internship": true,
+          "summary": "Build temporal machine-learning pipelines and classifiers that fuse multimodal autonomous-driving data and recognize driving behaviors."
+        },
+        "scalar_accuracy": 0.6,
+        "required_skill_f1": 0.0,
+        "preferred_skill_f1": 0.0,
+        "latency_seconds": 1.9100607089931145,
+        "input_tokens": 1997,
+        "output_tokens": 141
+      },
+      {
+        "id": "common-sense-privacy-account-executive",
+        "status": "ok",
+        "prediction": {
+          "organization": "Common Sense Privacy",
+          "role_type": "Other",
+          "required_skills": [],
+          "preferred_skills": [],
+          "min_years_experience": null,
+          "location": "<UNKNOWN>",
+          "is_internship": false,
+          "summary": "Account Executive responsible for owning the full B2B SaaS sales cycle, managing mid-market territories, and generating pipeline through a mix of outbound prospecting and referrals while reporting directly to the CEO.",
+          "company": "Common Sense Privacy",
+          "title": "Account Executive"
+        },
+        "expected": {
+          "organization": null,
+          "role_type": "Other",
+          "required_skills": [
+            "B2B SaaS Sales",
+            "Pipeline Generation",
+            "CRM",
+            "Forecasting",
+            "Sales Discovery",
+            "Sales Process"
+          ],
+          "preferred_skills": [
+            "EdTech",
+            "HealthTech",
+            "FinTech",
+            "Privacy Sales",
+            "Security Sales",
+            "Compliance Sales",
+            "Data Governance Sales",
+            "New Market Entry"
+          ],
+          "min_years_experience": 5,
+          "location": "Remote",
+          "is_internship": false,
+          "summary": "Own full-cycle B2B SaaS sales for Common Sense Privacy, building pipeline, managing deals, and expanding the company into new verticals."
+        },
+        "scalar_accuracy": 0.4,
+        "required_skill_f1": 0.0,
+        "preferred_skill_f1": 0.0,
+        "latency_seconds": 2.3663107909960672,
+        "input_tokens": 2397,
+        "output_tokens": 161
+      },
+      {
+        "id": "certifyos-ai-intern",
+        "status": "ok",
+        "prediction": {
+          "organization": "CertifyOS",
+          "role_type": "AI/ML Engineer",
+          "required_skills": [],
+          "preferred_skills": [],
+          "min_years_experience": null,
+          "location": "Remote",
+          "is_internship": true,
+          "summary": "A 6-month internship for an ML Engineer to build, test, and deploy production-ready ML services on CertifyOS's healthcare provider data platform, with emphasis on software engineering excellence and GCP deployment.",
+          "company": "CertifyOS",
+          "title": "AI Intern"
+        },
+        "expected": {
+          "organization": null,
+          "role_type": "AI/ML Engineer",
+          "required_skills": [
+            "Python",
+            "Production Services",
+            "Google Cloud Platform",
+            "SQL",
+            "Testing",
+            "Debugging",
+            "Git",
+            "CI/CD",
+            "Monitoring",
+            "ML Evaluation"
+          ],
+          "preferred_skills": [
+            "Java",
+            "Data Pipelines",
+            "ETL",
+            "Healthcare Data",
+            "Compliance",
+            "PII",
+            "MLflow",
+            "Weights & Biases"
+          ],
+          "min_years_experience": null,
+          "location": "Remote",
+          "is_internship": true,
+          "summary": "Build, evaluate, deploy, and operate production ML services and data workflows on GCP for CertifyOS's healthcare provider-data platform."
+        },
+        "scalar_accuracy": 0.8,
+        "required_skill_f1": 0.0,
+        "preferred_skill_f1": 0.0,
+        "latency_seconds": 3.472854792024009,
+        "input_tokens": 2508,
+        "output_tokens": 176
+      },
+      {
+        "id": "tessera-product-manager-intern",
+        "status": "ok",
+        "prediction": {
+          "organization": null,
+          "role_type": "TPM/PM",
+          "required_skills": [],
+          "preferred_skills": [],
+          "min_years_experience": null,
+          "location": "San Jose, CA or Remote",
+          "is_internship": true,
+          "summary": "Product Manager Intern at Tessera Labs supporting the full product development lifecycle for AI-powered enterprise automation, including customer discovery, requirements definition, and feature launches.",
+          "company": "Tessera Labs",
+          "title": "Product Manager, Intern"
+        },
+        "expected": {
+          "organization": null,
+          "role_type": "TPM/PM",
+          "required_skills": [
+            "Analytical Problem Solving",
+            "Communication",
+            "AI Product Curiosity",
+            "Ambiguity Management",
+            "Organization",
+            "Collaboration"
+          ],
+          "preferred_skills": [
+            "Product Management",
+            "Consulting",
+            "Software Engineering",
+            "Design",
+            "User Research",
+            "Data Analysis",
+            "AI",
+            "SaaS",
+            "Enterprise Software",
+            "Technical Communication"
+          ],
+          "min_years_experience": null,
+          "location": "San Jose, CA or Remote (U.S.)",
+          "is_internship": true,
+          "summary": "Support product discovery, requirements, roadmap planning, and launches for AI-powered enterprise automation products while owning a scoped product project."
+        },
+        "scalar_accuracy": 0.8,
+        "required_skill_f1": 0.0,
+        "preferred_skill_f1": 0.0,
+        "latency_seconds": 2.3832101250009146,
+        "input_tokens": 2521,
+        "output_tokens": 156
+      },
+      {
+        "id": "netboxlabs-technical-program-manager",
+        "status": "ok",
+        "prediction": {
+          "organization": "NetBox Labs",
+          "role_type": "TPM/PM",
+          "required_skills": [],
+          "preferred_skills": [],
+          "min_years_experience": null,
+          "location": "Remote",
+          "is_internship": false,
+          "summary": "Technical Program Manager responsible for owning end-to-end delivery of company-critical cross-team programs at NetBox Labs, ensuring alignment between Engineering, Product, and Design while managing dependencies and driving execution visibility.",
+          "company": "NetBox Labs",
+          "title": "Technical Program Manager"
+        },
+        "expected": {
+          "organization": null,
+          "role_type": "TPM/PM",
+          "required_skills": [
+            "Technical Program Management",
+            "Cross-Functional Leadership",
+            "Engineering Delivery",
+            "Multi-Team Delivery",
+            "Dependency Management",
+            "Risk Management",
+            "Communication",
+            "Influence",
+            "Ambiguity Management"
+          ],
+          "preferred_skills": [
+            "TPM Function Building",
+            "AI Tools",
+            "B2B SaaS",
+            "Platform Companies",
+            "Delivery Metrics",
+            "Program Reporting",
+            "Launch Coordination"
+          ],
+          "min_years_experience": 5,
+          "location": "Remote",
+          "is_internship": false,
+          "summary": "Lead cross-team technical programs across Engineering and Product, managing dependencies, risks, sequencing, and delivery visibility for company-critical initiatives."
+        },
+        "scalar_accuracy": 0.6,
+        "required_skill_f1": 0.0,
+        "preferred_skill_f1": 0.0,
+        "latency_seconds": 2.0424346659856383,
+        "input_tokens": 2927,
+        "output_tokens": 155
+      }
+    ],
+    "qwen": [
+      {
+        "id": "astranis-backend-intern-fall-2026",
+        "status": "ok",
+        "prediction": {
+          "organization": null,
+          "role_type": "SWE",
+          "required_skills": [
+            "Python",
+            "Postgres",
+            "pub/sub",
+            "streaming systems"
+          ],
+          "preferred_skills": [
+            "Kubernetes",
+            "fleet management systems"
+          ],
+          "min_years_experience": null,
+          "location": "Remote",
+          "is_internship": true,
+          "summary": "Design and build high-performance, reliable software services for controlling satellites and providing real-time situational awareness as an intern.",
+          "company": "Astranis",
+          "title": "Software Engineer- Backend Intern (Fall 2026)"
+        },
+        "expected": {
+          "organization": "Platform",
+          "role_type": "SWE",
+          "required_skills": [
+            "Python",
+            "Databases",
+            "Pub/Sub Systems",
+            "Streaming Systems"
+          ],
+          "preferred_skills": [
+            "Kubernetes",
+            "Fleet Management Systems"
+          ],
+          "min_years_experience": null,
+          "location": "San Francisco, CA",
+          "is_internship": true,
+          "summary": "Build reliable backend and infrastructure services that control satellites, monitor telemetry, and support mission-critical fleet operations."
+        },
+        "scalar_accuracy": 0.6,
+        "required_skill_f1": 0.5,
+        "preferred_skill_f1": 1.0,
+        "latency_seconds": 2.6822567080089357,
+        "input_tokens": 2113,
+        "output_tokens": 117
+      },
+      {
+        "id": "aquatic-swe-intern-summer-2027",
+        "status": "ok",
+        "prediction": {
+          "organization": null,
+          "role_type": "SWE",
+          "required_skills": [
+            "Python",
+            "C++",
+            "Algorithms",
+            "Systems",
+            "Computer Architecture"
+          ],
+          "preferred_skills": [],
+          "min_years_experience": null,
+          "location": "Remote",
+          "is_internship": true,
+          "summary": "Join a fast-moving team building high-performance, distributed systems that power research and trading infrastructure. Work on improving system reliability and optimizing low-latency, high-throughput data processing.",
+          "company": "Aquatic Capital Management",
+          "title": "Software Engineer, Intern (Summer 2027)"
+        },
+        "expected": {
+          "organization": null,
+          "role_type": "SWE",
+          "required_skills": [
+            "Python",
+            "C++",
+            "Algorithms",
+            "Systems",
+            "Computer Architecture"
+          ],
+          "preferred_skills": [],
+          "min_years_experience": null,
+          "location": "Chicago",
+          "is_internship": true,
+          "summary": "Build high-performance distributed systems for quantitative research and trading infrastructure, with an emphasis on reliability and low-latency, high-throughput data processing."
+        },
+        "scalar_accuracy": 0.8,
+        "required_skill_f1": 1.0,
+        "preferred_skill_f1": 1.0,
+        "latency_seconds": 6.357165291992715,
+        "input_tokens": 1850,
+        "output_tokens": 119
+      },
+      {
+        "id": "samaya-ml-research-intern",
+        "status": "ok",
+        "prediction": {
+          "organization": null,
+          "role_type": "AI/ML Researcher",
+          "required_skills": [
+            "Machine Learning",
+            "Natural Language Processing",
+            "Deep Learning",
+            "Python",
+            "PyTorch",
+            "Transformers"
+          ],
+          "preferred_skills": [
+            "RAG",
+            "RL",
+            "AI agents",
+            "First-author publications in top AI/NLP conferences"
+          ],
+          "min_years_experience": null,
+          "location": null,
+          "is_internship": true,
+          "summary": "Conduct original research in LLM training and evaluation, RAG, RL, and AI agents to publish in top ML/NLP conferences and contribute to the company’s product roadmap.",
+          "company": "Samaya AI",
+          "title": "ML Research Intern"
+        },
+        "expected": {
+          "organization": null,
+          "role_type": "AI/ML Researcher",
+          "required_skills": [
+            "Deep Learning",
+            "Large Language Models",
+            "NLP",
+            "Python",
+            "PyTorch",
+            "Transformers"
+          ],
+          "preferred_skills": [
+            "RAG",
+            "Reinforcement Learning",
+            "AI Agent Training",
+            "AI Agent Evaluation"
+          ],
+          "min_years_experience": null,
+          "location": "Mountain View, California, United States",
+          "is_internship": true,
+          "summary": "Conduct original ML and NLP research on LLMs and AI agents, developing and evaluating new methods with the goal of producing publishable advances for financial AI."
+        },
+        "scalar_accuracy": 0.8,
+        "required_skill_f1": 0.6666666666666666,
+        "preferred_skill_f1": 0.25,
+        "latency_seconds": 8.69017466699006,
+        "input_tokens": 2507,
+        "output_tokens": 158
+      },
+      {
+        "id": "xtx-xty-ai-research-internship",
+        "status": "ok",
+        "prediction": {
+          "organization": null,
+          "role_type": "AI/ML Researcher",
+          "required_skills": [
+            "original research",
+            "deep learning architectures",
+            "transformers",
+            "data science",
+            "optimization",
+            "statistics",
+            "programming"
+          ],
+          "preferred_skills": [
+            "foundational models",
+            "large language models",
+            "multi-modal frameworks",
+            "time series forecasting"
+          ],
+          "min_years_experience": null,
+          "location": "New York, NY",
+          "is_internship": true,
+          "summary": "Interns will engage in cutting-edge machine learning research, working on novel algorithms and models with the opportunity to directly impact trading strategies.",
+          "company": "XTX Markets",
+          "title": "AI Research Internship - XTY Labs"
+        },
+        "expected": {
+          "organization": "XTY Labs",
+          "role_type": "AI/ML Researcher",
+          "required_skills": [
+            "Original Research",
+            "Deep Learning",
+            "Transformers",
+            "Data Science",
+            "Optimization",
+            "Statistics",
+            "Programming"
+          ],
+          "preferred_skills": [
+            "Foundation Models",
+            "Large Language Models",
+            "Multimodal Models",
+            "Large-Scale Data Analysis",
+            "Time Series Forecasting"
+          ],
+          "min_years_experience": null,
+          "location": "New York",
+          "is_internship": true,
+          "summary": "Conduct original AI and machine-learning research at XTY Labs, building robust models and prototypes that can translate advanced research into quantitative trading applications."
+        },
+        "scalar_accuracy": 0.6,
+        "required_skill_f1": 0.8571428571428571,
+        "preferred_skill_f1": 0.4444444444444445,
+        "latency_seconds": 10.787496749981074,
+        "input_tokens": 3441,
+        "output_tokens": 153
+      },
+      {
+        "id": "palantir-pcl-swe-internship",
+        "status": "ok",
+        "prediction": {
+          "organization": null,
+          "role_type": "SWE",
+          "required_skills": [
+            "Python",
+            "Java",
+            "C++",
+            "TypeScript/JavaScript"
+          ],
+          "preferred_skills": [
+            "Privacy",
+            "Data Protection",
+            "AI Governance",
+            "AI Testing & Evaluation",
+            "National Security",
+            "Technology Policy",
+            "Technology Ethics"
+          ],
+          "min_years_experience": null,
+          "location": "Remote",
+          "is_internship": true,
+          "summary": "Design and develop full-stack software products for privacy, data protection, AI governance, and accountability in Palantir’s software platforms.",
+          "company": "Palantir Technologies",
+          "title": "Privacy and Civil Liberties Software Engineer, Internship"
+        },
+        "expected": {
+          "organization": "Privacy and Civil Liberties (PCL) Engineering",
+          "role_type": "SWE",
+          "required_skills": [
+            "Programming"
+          ],
+          "preferred_skills": [
+            "Privacy",
+            "Data Protection",
+            "AI Governance",
+            "AI Testing & Evaluation",
+            "National Security",
+            "Technology Policy",
+            "Technology Ethics"
+          ],
+          "min_years_experience": null,
+          "location": "New York, NY",
+          "is_internship": true,
+          "summary": "Build full-stack software for privacy, data protection, AI governance, and accountability while working across technical, policy, and customer-facing problems."
+        },
+        "scalar_accuracy": 0.6,
+        "required_skill_f1": 0.0,
+        "preferred_skill_f1": 1.0,
+        "latency_seconds": 8.290060458995868,
+        "input_tokens": 2466,
+        "output_tokens": 145
+      },
+      {
+        "id": "plusai-ml-engineer-intern",
+        "status": "ok",
+        "prediction": {
+          "organization": null,
+          "role_type": "AI/ML Engineer",
+          "required_skills": [
+            "Temporal Data",
+            "Python",
+            "Pandas",
+            "NumPy",
+            "PyArrow/Parquet",
+            "Classification",
+            "Supervised Learning"
+          ],
+          "preferred_skills": [
+            "Distributed Processing",
+            "Autonomous Driving Problems"
+          ],
+          "min_years_experience": null,
+          "location": null,
+          "is_internship": false,
+          "summary": "Develops pipelines for multi-modal feature fusion and event classifiers for autonomous driving using Python, temporal data analysis, and machine learning techniques.",
+          "company": "PlusAI",
+          "title": "Machine Learning Engineer Intern"
+        },
+        "expected": {
+          "organization": null,
+          "role_type": "AI/ML Engineer",
+          "required_skills": [
+            "Temporal Data",
+            "Python",
+            "Pandas",
+            "NumPy",
+            "PyArrow",
+            "Parquet",
+            "Classification",
+            "Supervised Learning"
+          ],
+          "preferred_skills": [
+            "Spark",
+            "Ray",
+            "Autonomous Driving"
+          ],
+          "min_years_experience": null,
+          "location": "Santa Clara, CA",
+          "is_internship": true,
+          "summary": "Build temporal machine-learning pipelines and classifiers that fuse multimodal autonomous-driving data and recognize driving behaviors."
+        },
+        "scalar_accuracy": 0.6,
+        "required_skill_f1": 0.7999999999999999,
+        "preferred_skill_f1": 0.0,
+        "latency_seconds": 5.658350999990944,
+        "input_tokens": 1261,
+        "output_tokens": 140
+      },
+      {
+        "id": "common-sense-privacy-account-executive",
+        "status": "ok",
+        "prediction": {
+          "organization": null,
+          "role_type": "Other",
+          "required_skills": [
+            "Sales execution",
+            "Pipeline generation",
+            "CRM hygiene",
+            "Qualify and educate",
+            "Discovery instincts"
+          ],
+          "preferred_skills": [],
+          "min_years_experience": 5,
+          "location": "Remote",
+          "is_internship": false,
+          "summary": "Account Executive role focusing on sales execution, pipeline generation, and maintaining CRM hygiene in mid-market SaaS companies and technology platforms.",
+          "company": "Common Sense Privacy",
+          "title": "Account Executive"
+        },
+        "expected": {
+          "organization": null,
+          "role_type": "Other",
+          "required_skills": [
+            "B2B SaaS Sales",
+            "Pipeline Generation",
+            "CRM",
+            "Forecasting",
+            "Sales Discovery",
+            "Sales Process"
+          ],
+          "preferred_skills": [
+            "EdTech",
+            "HealthTech",
+            "FinTech",
+            "Privacy Sales",
+            "Security Sales",
+            "Compliance Sales",
+            "Data Governance Sales",
+            "New Market Entry"
+          ],
+          "min_years_experience": 5,
+          "location": "Remote",
+          "is_internship": false,
+          "summary": "Own full-cycle B2B SaaS sales for Common Sense Privacy, building pipeline, managing deals, and expanding the company into new verticals."
+        },
+        "scalar_accuracy": 1.0,
+        "required_skill_f1": 0.1818181818181818,
+        "preferred_skill_f1": 0.0,
+        "latency_seconds": 6.020719416992506,
+        "input_tokens": 1653,
+        "output_tokens": 113
+      },
+      {
+        "id": "certifyos-ai-intern",
+        "status": "ok",
+        "prediction": {
+          "organization": null,
+          "role_type": "AI/ML Engineer",
+          "required_skills": [
+            "Python",
+            "Google Cloud Platform",
+            "SQL",
+            "Testing",
+            "Code Reviews",
+            "CI/CD",
+            "Observability",
+            "Documentation"
+          ],
+          "preferred_skills": [
+            "Java",
+            "Data Pipelines",
+            "ETL Jobs",
+            "Healthcare Data",
+            "Compliance Requirements",
+            "PII",
+            "Experiment Tracking Tools"
+          ],
+          "min_years_experience": null,
+          "location": "Remote",
+          "is_internship": true,
+          "summary": "This role involves designing, implementing, and maintaining ML-driven services and data workflows in Python, with a focus on robust software engineering practices and deploying services on Google Cloud Platform.",
+          "company": "CertifyOS",
+          "title": "AI Intern"
+        },
+        "expected": {
+          "organization": null,
+          "role_type": "AI/ML Engineer",
+          "required_skills": [
+            "Python",
+            "Production Services",
+            "Google Cloud Platform",
+            "SQL",
+            "Testing",
+            "Debugging",
+            "Git",
+            "CI/CD",
+            "Monitoring",
+            "ML Evaluation"
+          ],
+          "preferred_skills": [
+            "Java",
+            "Data Pipelines",
+            "ETL",
+            "Healthcare Data",
+            "Compliance",
+            "PII",
+            "MLflow",
+            "Weights & Biases"
+          ],
+          "min_years_experience": null,
+          "location": "Remote",
+          "is_internship": true,
+          "summary": "Build, evaluate, deploy, and operate production ML services and data workflows on GCP for CertifyOS's healthcare provider-data platform."
+        },
+        "scalar_accuracy": 1.0,
+        "required_skill_f1": 0.5555555555555556,
+        "preferred_skill_f1": 0.5333333333333333,
+        "latency_seconds": 7.54041087499354,
+        "input_tokens": 1735,
+        "output_tokens": 176
+      },
+      {
+        "id": "tessera-product-manager-intern",
+        "status": "ok",
+        "prediction": {
+          "organization": null,
+          "role_type": "TPM/PM",
+          "required_skills": [
+            "analytical skills",
+            "problem-solving skills",
+            "written communication",
+            "verbal communication",
+            "curiosity about AI",
+            "enterprise software knowledge"
+          ],
+          "preferred_skills": [
+            "user research experience",
+            "data analysis experience",
+            "AI, SaaS products knowledge",
+            "technical background"
+          ],
+          "min_years_experience": null,
+          "location": "San Jose, CA or Remote (U.S.)",
+          "is_internship": true,
+          "summary": "Support product discovery and development through customer research, requirement definition, feature launches, and market analysis while gaining exposure to the full product lifecycle in a fast-paced startup environment.",
+          "company": "Tessera Labs",
+          "title": "Product Manager, Intern"
+        },
+        "expected": {
+          "organization": null,
+          "role_type": "TPM/PM",
+          "required_skills": [
+            "Analytical Problem Solving",
+            "Communication",
+            "AI Product Curiosity",
+            "Ambiguity Management",
+            "Organization",
+            "Collaboration"
+          ],
+          "preferred_skills": [
+            "Product Management",
+            "Consulting",
+            "Software Engineering",
+            "Design",
+            "User Research",
+            "Data Analysis",
+            "AI",
+            "SaaS",
+            "Enterprise Software",
+            "Technical Communication"
+          ],
+          "min_years_experience": null,
+          "location": "San Jose, CA or Remote (U.S.)",
+          "is_internship": true,
+          "summary": "Support product discovery, requirements, roadmap planning, and launches for AI-powered enterprise automation products while owning a scoped product project."
+        },
+        "scalar_accuracy": 1.0,
+        "required_skill_f1": 0.0,
+        "preferred_skill_f1": 0.0,
+        "latency_seconds": 7.431327500002226,
+        "input_tokens": 1713,
+        "output_tokens": 169
+      },
+      {
+        "id": "netboxlabs-technical-program-manager",
+        "status": "ok",
+        "prediction": {
+          "organization": null,
+          "role_type": "TPM/PM",
+          "required_skills": [
+            "complex technical programs",
+            "cross-functional programs",
+            "technical discussions",
+            "dependencies",
+            "tradeoffs",
+            "written communication",
+            "verbal communication",
+            "leading through influence",
+            "ambiguity"
+          ],
+          "preferred_skills": [
+            "building TPM function",
+            "AI tools",
+            "B2B SaaS",
+            "delivery metrics",
+            "program health dashboards",
+            "Customer Success",
+            "Go-to-Market teams"
+          ],
+          "min_years_experience": 5,
+          "location": null,
+          "is_internship": false,
+          "summary": "Own the execution of company-critical, cross-team programs and drive visibility and alignment across engineering, product, and design to ensure successful delivery.",
+          "company": "NetBox Labs",
+          "title": "Technical Program Manager"
+        },
+        "expected": {
+          "organization": null,
+          "role_type": "TPM/PM",
+          "required_skills": [
+            "Technical Program Management",
+            "Cross-Functional Leadership",
+            "Engineering Delivery",
+            "Multi-Team Delivery",
+            "Dependency Management",
+            "Risk Management",
+            "Communication",
+            "Influence",
+            "Ambiguity Management"
+          ],
+          "preferred_skills": [
+            "TPM Function Building",
+            "AI Tools",
+            "B2B SaaS",
+            "Platform Companies",
+            "Delivery Metrics",
+            "Program Reporting",
+            "Launch Coordination"
+          ],
+          "min_years_experience": 5,
+          "location": "Remote",
+          "is_internship": false,
+          "summary": "Lead cross-team technical programs across Engineering and Product, managing dependencies, risks, sequencing, and delivery visibility for company-critical initiatives."
+        },
+        "scalar_accuracy": 0.8,
+        "required_skill_f1": 0.0,
+        "preferred_skill_f1": 0.42857142857142855,
+        "latency_seconds": 8.634342875011498,
+        "input_tokens": 2083,
+        "output_tokens": 186
+      }
+    ]
+  }
+}
