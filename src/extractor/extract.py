@@ -41,6 +41,7 @@ _EXTRACTION_TOOL = {
     # Name is the function idenfier Claude will invoke
     "name": _EXTRACTION_TOOL_NAME, # No function for this; giving LLM a form a saying to fill it out
     "description": "Record structured fields extracted from a job posting.", # Telling what the tool is for
+    "strict": True,
     # Takes pydantic blueprint and translates into standard JSON schema format so claude understands exact fields
     "input_schema": ExtractedJobDetails.model_json_schema(), # Makes into JSON
 }
