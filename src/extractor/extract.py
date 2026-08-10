@@ -27,7 +27,7 @@ import time
 from dataclasses import dataclass
 
 import requests
-from anthropic import Anthropic
+from anthropic import Anthropic, transform_schema
 
 from src.config import settings
 from src.extractor.schemas import ExtractedJob, ExtractedJobDetails
@@ -36,6 +36,10 @@ _client = Anthropic(api_key=settings.anthropic_api_key) # Creates re-usable conn
 
 _EXTRACTION_TOOL_NAME = "record_extracted_job_details"
 
+_EXTRACTION_SCHEMA = transform_schema(
+    ExtractedJobDetails.model_json_schema()
+)
+
 # Dictionary --> tool specification for claude
 _EXTRACTION_TOOL = {
     # Name is the function idenfier Claude will invoke
@@ -43,7 +47,7 @@ _EXTRACTION_TOOL = {
     "description": "Record structured fields extracted from a job posting.", # Telling what the tool is for
     "strict": True,
     # Takes pydantic blueprint and translates into standard JSON schema format so claude understands exact fields
-    "input_schema": ExtractedJobDetails.model_json_schema(), # Makes into JSON
+    "input_schema": _EXTRACTION_SCHEMA, # Makes into JSON
 }
 
 
