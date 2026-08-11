@@ -93,10 +93,5 @@
     "id": "b19",
     "text": "Published research on structural isolation in circuit optimization after conducting machine-learning and hardware-security experiments on integrated-circuit representations.",
     "tracks": ["AI/ML Researcher"]
-  },
-  {
-    "id": "b20",
-    "text": "Built technical research and engineering workflows in Python using PyTorch, NumPy, Pandas, and scikit-learn for machine learning experimentation, evaluation, and data analysis.",
-    "tracks": ["SWE/AI Engineer", "AI/ML Researcher"]
   }
 ]
