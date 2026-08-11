@@ -25,6 +25,7 @@ from src.matcher.match import match_job_to_resume
 class PipelineState(TypedDict, total=False):
     raw_jd: str
     company: str
+    title: str
     extracted: dict
     extraction_model: str
     matches: list[dict]
@@ -32,11 +33,17 @@ class PipelineState(TypedDict, total=False):
 
 def extract_node(state: PipelineState) -> PipelineState:
     try:
-        result = extract_with_ollama(state["raw_jd"])
-    except Exception:
+        result = extract_with_ollama(state["raw_jd"], company=state["company"], title=state["title"])
+    except Exception as e:
         # Local model unavailable or produced invalid output -- fall back
         # to the closed-source model rather than losing the posting.
-        result = extract_with_claude(state["raw_jd"])
+
+        print(f"Ollama extraction failed: {e}")
+        print("Falling back to Claude...")
+
+
+        result = extract_with_claude(state["raw_jd"], company=state["company"], title=state["title"])
+
     return {
         **state,
         "extracted": result.job.model_dump(),
@@ -61,14 +68,17 @@ def build_graph():
 
 if __name__ == "__main__":
     app = build_graph()
+
     result = app.invoke(
         {
             "raw_jd": (
                 "We're looking for a Software Engineering Intern with experience "
-                "in Python, distributed systems, and a strong CS fundamentals "
-                "background. You'll work on our core API platform."
+                "in Python, distributed systems, and strong CS fundamentals. "
+                "You'll work on our core API platform."
             ),
             "company": "Example Co",
+            "title": "Software Engineering Intern",
         }
     )
+
     print(result)
