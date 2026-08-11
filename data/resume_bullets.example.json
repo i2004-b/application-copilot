@@ -1,32 +1,102 @@
 [
   {
     "id": "b1",
-    "text": "Built a Python service that processes and validates structured data from multiple third-party APIs.",
-    "tracks": ["SWE", "AI/ML Engineer"]
-  },
-  {
-    "id": "b2",
-    "text": "Implemented a multi-agent pipeline using LangGraph and a custom MCP server to automate a multi-step data workflow.",
-    "tracks": ["AI/ML Engineer", "SWE"]
-  },
-  {
-    "id": "b3",
-    "text": "Fine-tuned an open-source transformer model and benchmarked it against a closed-source API on accuracy, latency, and cost.",
-    "tracks": ["AI/ML Engineer", "AI/ML Researcher"]
-  },
-  {
-    "id": "b4",
-    "text": "Ran a multi-agent research project studying behavioral drift and hallucination propagation across LLM pipelines.",
+    "text": "Designed controlled multi-agent LLM experiments to measure how false beliefs and behavioral tendencies propagate across agent networks under different topologies, seeding methods, transmission modes, correction policies, and claim types.",
     "tracks": ["AI/ML Researcher"]
   },
   {
+    "id": "b2",
+    "text": "Built reproducible Python workflows to execute multi-agent LLM trials, aggregate generation- and network-level metrics, and identify conditions associated with amplification, containment, and source laundering.",
+    "tracks": ["AI/ML Researcher", "SWE/AI Engineer"]
+  },
+  {
+    "id": "b3",
+    "text": "Translated research on emergent misalignment and hidden trait transmission into testable hypotheses and evaluation protocols for a manuscript on behavioral propagation and alignment risk.",
+    "tracks": ["AI/ML Researcher"]
+  },
+  {
+    "id": "b4",
+    "text": "Designed an ML benchmarking framework to compare accuracy, latency, and memory tradeoffs across post-training quantization and quantization-aware training strategies.",
+    "tracks": ["SWE/AI Engineer", "AI/ML Researcher"]
+  },
+  {
     "id": "b5",
-    "text": "Interviewed a cohort of target users, wrote a PRD, and prioritized a feature backlog using a RICE framework.",
-    "tracks": ["TPM/PM"]
+    "text": "Built reproducible data, training, and evaluation workflows with configuration management, validation checks, and automated metric logging for model quantization experiments.",
+    "tracks": ["SWE/AI Engineer"]
   },
   {
     "id": "b6",
-    "text": "Shipped a staged product rollout (v1-v3) to real users and tracked weekly adoption metrics to guide the roadmap.",
+    "text": "Led a machine learning capstone team developing and evaluating quantization strategies for AI models, coordinating implementation around accuracy, latency, and memory objectives.",
+    "tracks": ["SWE/AI Engineer", "TPM/PM"]
+  },
+  {
+    "id": "b7",
+    "text": "Prototyped MCP-based agent interactions demonstrating how AI agents can retrieve, verify, and process financial data through tool-based workflows.",
+    "tracks": ["SWE/AI Engineer"]
+  },
+  {
+    "id": "b8",
+    "text": "Built a Python simulation of the loan-application workflow to model how MCP-enabled agents could automate credit evaluation, document retrieval, and lender communication.",
+    "tracks": ["SWE/AI Engineer"]
+  },
+  {
+    "id": "b9",
+    "text": "Applied graph neural networks to generate joint structural-functional embeddings of logic gates for identifying vulnerabilities in obscured integrated circuits.",
+    "tracks": ["SWE/AI Engineer", "AI/ML Researcher"]
+  },
+  {
+    "id": "b10",
+    "text": "Benchmarked graph-neural-network embedding performance on ISCAS-85 circuits and evaluated robustness to logic-preserving transformations including inverter insertions and De Morgan rewrites.",
+    "tracks": ["AI/ML Researcher", "SWE/AI Engineer"]
+  },
+  {
+    "id": "b11",
+    "text": "Executed structural-sensitivity experiments showing that learned circuit embeddings preserved functional similarities despite structural and layout differences.",
+    "tracks": ["AI/ML Researcher"]
+  },
+  {
+    "id": "b12",
+    "text": "Designed and implemented full-stack features and workflow automations for enterprise trade systems, translating regulatory requirements into technical specifications, application logic, and user-facing forms.",
+    "tracks": ["SWE/AI Engineer", "TPM/PM"]
+  },
+  {
+    "id": "b13",
+    "text": "Developed SAP and ABAP programs and enterprise forms from functional requirements, documenting system logic and validating implementations against business and compliance requirements.",
+    "tracks": ["SWE/AI Engineer"]
+  },
+  {
+    "id": "b14",
+    "text": "Translated federal and international trade regulations into implementable software requirements and workflows for enterprise compliance systems.",
+    "tracks": ["SWE/AI Engineer", "TPM/PM"]
+  },
+  {
+    "id": "b15",
+    "text": "Supported Phase 1 of an SAP GTS implementation by mapping cross-border process automations, product-classification workflows, and compliance processes and surfacing system gaps and risks.",
     "tracks": ["TPM/PM"]
+  },
+  {
+    "id": "b16",
+    "text": "Tracked issues, dependencies, and blockers across system-integration workflows and aligned technical and business stakeholders on timelines for an SAP GTS rollout.",
+    "tracks": ["TPM/PM"]
+  },
+  {
+    "id": "b17",
+    "text": "Analyzed enterprise trade and compliance workflows to identify opportunities for automation while coordinating requirements across business processes and technology systems.",
+    "tracks": ["TPM/PM", "SWE/AI Engineer"]
+  },
+  {
+    "id": "b18",
+    "text": "Mentored computer engineering students on connecting C programs to ARM assembly and debugging low-level programming concepts through targeted assignments.",
+    "tracks": ["SWE/AI Engineer"]
+  },
+  {
+    "id": "b19",
+    "text": "Published research on structural isolation in circuit optimization after conducting machine-learning and hardware-security experiments on integrated-circuit representations.",
+    "tracks": ["AI/ML Researcher"]
+  },
+  {
+    "id": "b20",
+    "text": "Built technical research and engineering workflows in Python using PyTorch, NumPy, Pandas, and scikit-learn for machine learning experimentation, evaluation, and data analysis.",
+    "tracks": ["SWE/AI Engineer", "AI/ML Researcher"]
   }
 ]
