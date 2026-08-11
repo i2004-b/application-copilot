@@ -9,6 +9,15 @@ from src.matcher.resume_store import ResumeStore
 
 _store: ResumeStore | None = None
 
+# Role to resume track mapping
+ROLE_TO_TRACK = {
+    "SWE": "SWE/AI Engineer",
+    "AI/ML Engineer": "SWE/AI Engineer",
+    "AI/ML Researcher": "AI/ML Researcher",
+    "TPM/PM": "TPM/PM",
+    "Other": None,
+}
+
 
 def _get_store() -> ResumeStore:
     global _store
@@ -20,8 +29,14 @@ def _get_store() -> ResumeStore:
 def match_job_to_resume(extracted: dict | ExtractedJob, k: int = 5) -> list[dict]:
     """Score an extracted job against your resume bullets for its role_type."""
     job = extracted if isinstance(extracted, ExtractedJob) else ExtractedJob(**extracted)
+
+    track = ROLE_TO_TRACK.get(job.role_type)
+
+    if track is None:
+        return []
+    
     query = f"{job.summary} Skills: {', '.join(job.required_skills)}"
-    return _get_store().top_matches(query, k=k, track=job.role_type)
+    return _get_store().top_matches(query, k=k, track=track)
 
 
 def draft_tailored_pitch(job: ExtractedJob, top_bullet: dict) -> str:
