@@ -22,6 +22,9 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--board-token", required=True, help="Greenhouse board token, e.g. 'stripe'")
     parser.add_argument("--keyword", default="intern")
+
+    # Additional argument
+    parser.add_argument("--company", required=True, help="HUman-readable company name, e.g. 'Stripe'")
     args = parser.parse_args()
 
     init_db()
@@ -31,9 +34,14 @@ def main() -> None:
     print(f"Fetched {len(postings)} postings matching '{args.keyword}'")
 
     for posting in postings:
-        result = app.invoke({"raw_jd": posting.get("content", ""), "company": args.board_token})
+        result = app.invoke({
+            "raw_jd": posting.get("content", ""),
+            "company": args.company,
+            "title": posting["title"],
+        })
+
         posting_id = save_posting(
-            company=args.board_token,
+            company=args.company,
             source="greenhouse",
             raw_jd=posting.get("content", ""),
             extracted=result["extracted"],
