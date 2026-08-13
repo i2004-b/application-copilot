@@ -24,6 +24,7 @@ from mcp.server import MCPServer
 from src.scout.greenhouse import fetch_postings as fetch_greenhouse_postings
 from src.scout.greenhouse import filter_by_keywords
 from src.extractor.extract import extract_with_claude
+from src.extractor.extract import extract_with_ollama
 from src.matcher.match import match_job_to_resume
 
 mcp = MCPServer("application-copilot")
@@ -43,10 +44,15 @@ def fetch_postings(board_token: str, keyword_filter: str = "intern") -> list[dic
 
 
 @mcp.tool()
-def extract_job_fields(raw_jd_text: str) -> dict:
+def extract_job_fields(raw_jd_text: str, company: str, title: str) -> dict:
     """Extract structured fields (role type, required skills, years of
     experience) from raw job-posting text."""
-    return extract_with_claude(raw_jd_text).job.model_dump()
+    try:
+        result = extract_with_ollama(raw_jd_text, company=company, title=title)
+    except Exception:
+        result = extract_with_claude(raw_jd_text, company=company, title=title)
+
+    return result.job.model_dump()
 
 
 @mcp.tool()
