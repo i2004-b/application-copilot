@@ -165,3 +165,4 @@ your real numbers from the week 1 comparison table):
   legitimate week 2 stretch goal, not something you missed.
 - No auth on the MCP server — fine for local personal use, not for sharing
   publicly as-is.
+  
