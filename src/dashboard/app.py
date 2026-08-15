@@ -1,66 +1,129 @@
 """
-Streamlit dashboard: browse matched postings and their best resume bullets.
+Streamlit dashboard for browsing real job postings processed by the
+Application Copilot pipeline and their best-matching resume bullets.
 
-Runs immediately against data/sample_postings.json with zero API keys, so
-you can see the shape of the UI before any of the agent logic is wired up.
+Run from the project root with:
 
-  streamlit run src/dashboard/app.py
-
-Week 3 task: swap load_sample_postings() for db.models.all_postings_with_matches()
-once postings are actually flowing through the real pipeline and landing in
-data/copilot.db.
+    PYTHONPATH="$(pwd)" streamlit run src/dashboard/app.py
 """
-import json
-from pathlib import Path
 
 import streamlit as st
 
-SAMPLE_POSTINGS_PATH = Path(__file__).resolve().parents[2] / "data" / "sample_postings.json"
-
-
-def load_sample_postings() -> list[dict]:
-    return json.loads(SAMPLE_POSTINGS_PATH.read_text())
+from src.db.models import all_postings_with_matches
 
 
 def main() -> None:
-    st.set_page_config(page_title="Application Copilot", layout="wide")
-    st.title("Application Copilot")
-    st.caption(
-        "Postings pulled from Greenhouse/Lever/Ashby, extracted into structured "
-        "fields, and matched against your resume bullets."
+    st.set_page_config(
+        page_title="Application Copilot",
+        layout="wide",
     )
 
-    postings = load_sample_postings()
+    st.title("Application Copilot")
+    st.caption(
+        "Job postings extracted into structured fields and matched "
+        "against the most relevant resume bullets."
+    )
 
-    role_types = sorted({p["extracted"]["role_type"] for p in postings})
-    selected_types = st.multiselect("Filter by role type", role_types, default=role_types)
+    # Load real pipeline results from SQLite.
+    postings = all_postings_with_matches()
+
+    # Ignore any DB records that do not yet have extracted job data.
+    postings = [
+        p for p in postings
+        if p.get("extracted") is not None
+    ]
+
+    if not postings:
+        st.warning(
+            "No processed postings found. Run the pipeline first to "
+            "populate data/copilot.db."
+        )
+        return
+
+    # Role-type filter.
+    role_types = sorted(
+        {
+            p["extracted"]["role_type"]
+            for p in postings
+        }
+    )
+
+    selected_types = st.multiselect(
+        "Filter by role type",
+        role_types,
+        default=role_types,
+    )
 
     for posting in postings:
         job = posting["extracted"]
+
         if job["role_type"] not in selected_types:
             continue
 
         with st.container(border=True):
             col1, col2 = st.columns([3, 1])
-            with col1:
-                st.subheader(f"{job['title']} -- {job['company']}")
-                st.write(job["summary"])
-                st.caption(
-                    f"{job['role_type']} | {job.get('location', 'n/a')} | "
-                    f"source: {posting['source']}"
-                )
-                st.write("**Required skills:** " + ", ".join(job["required_skills"]))
-            with col2:
-                st.metric("Min. years exp.", job.get("min_years_experience", 0))
 
-            # TODO(week 3): replace this placeholder with real matches from
-            # matcher.match.match_job_to_resume(job) once the pipeline has
-            # actually run and stored matches in the DB.
-            st.info(
-                "Matched resume bullets will appear here once you wire this "
-                "view up to src/db/models.py -- see the TODO in this file.",
-                icon="🚧",
-            )
+            with col1:
+                st.subheader(
+                    f"{job['title']} — {job['company']}"
+                )
+
+                st.write(job["summary"])
+
+                st.caption(
+                    f"{job['role_type']} | "
+                    f"{job.get('location') or 'Location not specified'} | "
+                    f"source: {posting['source']} | "
+                    f"extractor: {posting.get('extraction_model', 'unknown')}"
+                )
+
+                required_skills = job.get("required_skills", [])
+
+                if required_skills:
+                    st.write(
+                        "**Required skills:** "
+                        + ", ".join(required_skills)
+                    )
+                else:
+                    st.write("**Required skills:** None explicitly listed")
+
+                preferred_skills = job.get("preferred_skills", [])
+
+                if preferred_skills:
+                    st.write(
+                        "**Preferred skills:** "
+                        + ", ".join(preferred_skills)
+                    )
+
+            with col2:
+                min_years = job.get("min_years_experience")
+
+                st.metric(
+                    "Min. years exp.",
+                    min_years if min_years is not None else "N/A",
+                )
+
+                st.metric(
+                    "Resume matches",
+                    len(posting["matches"]),
+                )
+
+            st.markdown("#### Top Resume Matches")
+
+            matches = posting["matches"]
+
+            if not matches:
+                st.info(
+                    "No resume matches were returned for this posting."
+                )
+
+            else:
+                for i, match in enumerate(matches, start=1):
+                    st.write(
+                        f"**{i}. Similarity: "
+                        f"{match['score']:.3f}**"
+                    )
+                    st.write(match["bullet_text"])
 
 
 if __name__ == "__main__":
