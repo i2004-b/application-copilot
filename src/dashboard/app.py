@@ -7,7 +7,24 @@ Run from the project root with:
     PYTHONPATH="$(pwd)" streamlit run src/dashboard/app.py
 """
 
+import os
+import sys
+from pathlib import Path
+
 import streamlit as st
+
+
+ROOT = Path(__file__).resolve().parents[2]
+
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+# Dashboard displays the frozen deployment snapshot rather than
+# the development database used by the pipeline.
+os.environ.setdefault(
+    "DB_PATH",
+    str(ROOT / "data" / "demo_copilot.db"),
+)
 
 from src.db.models import all_postings_with_matches
 
