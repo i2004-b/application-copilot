@@ -3,5 +3,6 @@ __pycache__/
 *.pyc
 .env
 data/copilot.db
+!data/demo_copilot.db
 .pytest_cache/
 .env.example
